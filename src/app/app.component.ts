@@ -51,6 +51,8 @@ export class AppComponent {
     switchMap((initalMouse: MouseEvent) => {
       return concat(
         this.touchMove$.pipe(
+          withLatestFrom(this.animFrame$),
+          map(([data, anim]) => data),
           tap(
             (data: MouseEvent) =>
               (this.position = data.clientY - initalMouse.clientY)
